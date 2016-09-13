@@ -15,19 +15,16 @@ public class TxLoggerFunctionalTestCase extends FunctionalTestCase {
     @Test
     public void testCustomLoggerFlow() throws Exception {
         testFlow("customLoggerTestFlow");
-        // runFlowWithPayloadAndExpect("testTransactionalInsertAndQuery", expectedResults, dog);
     }
 
     @Test
     public void testCustomLoggerFlowWithCorrelationExpression() throws Exception {
         testFlow("customLoggerTestFlowWithCorrelationExpression");
-        // runFlowWithPayloadAndExpect("testTransactionalInsertAndQuery", expectedResults, dog);
     }
 
     @Test
     public void testCustomLoggerFlowWithCategoryOverride() throws Exception {
         testFlow("customLoggerTestFlowWithCategoryOverride");
-        // runFlowWithPayloadAndExpect("testTransactionalInsertAndQuery", expectedResults, dog);
     }
 
 }
