@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:tx-logger="http://www.mulesoft.org/schema/mule/tx-logger" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/tx-logger http://www.mulesoft.org/schema/mule/tx-logger/current/mule-tx-logger.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <tx-logger:config name="customLoggerConfig" category="uk.ithis.customLoggerTestFlow" doc:name="CustomLogger: Configuration"/>
+
+    <flow name="customLoggerTestFlow">
+        <tx-logger:log message="log with default correlation ID" config-ref="customLoggerConfig" doc:name="CustomLogger"/>
+    </flow>
+
+    <flow name="customLoggerTestFlowWithCategoryOverride">
+        <tx-logger:log message="log with category override" category="uk.ithis.category.override" config-ref="customLoggerConfig" />
+    </flow>
+
+    <flow name="customLoggerTestFlowWithCorrelationExpression">
+        <set-variable variableName="testCorrelationId" value="1234567890abcdef" doc:name="Variable"/>
+        <tx-logger:log message="log with specified correlation ID" correlationId="#[testCorrelationId]"  config-ref="customLoggerConfig" doc:name="CustomLogger"/>
+    </flow>
+</mule>
