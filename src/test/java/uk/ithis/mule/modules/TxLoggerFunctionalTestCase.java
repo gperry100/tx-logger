@@ -26,5 +26,4 @@ public class TxLoggerFunctionalTestCase extends FunctionalTestCase {
     public void testCustomLoggerFlowWithCategoryOverride() throws Exception {
         testFlow("customLoggerTestFlowWithCategoryOverride");
     }
-
 }
