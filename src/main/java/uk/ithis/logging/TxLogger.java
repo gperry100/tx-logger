@@ -5,6 +5,7 @@ import org.mule.api.MuleEvent;
 import org.mule.api.expression.ExpressionManager;
 import org.mule.api.processor.LoggerMessageProcessor;
 import org.slf4j.Logger;
+import org.slf4j.MDC;
 
 import java.util.UUID;
 
@@ -17,7 +18,6 @@ public class TxLogger extends LoggerMessageProcessor {
     }
 
     public static void Log(Log log, String level, String message, String correlationId) {
-
         TxLogger txLogger = new TxLogger(correlationId);
         txLogger.setLogger(log);
         txLogger.setLevel(level);
@@ -25,13 +25,8 @@ public class TxLogger extends LoggerMessageProcessor {
     }
 
     public static void Log(Logger logger, String level, String message, String correlationId) {
-
-        TxLogger txLogger = new TxLogger(correlationId);
         Log log = new Slf4jLog(logger);
-
-        txLogger.setLogger(log);
-        txLogger.setLevel(level);
-        txLogger.log(message);
+        TxLogger.Log(log, level, message, correlationId);
     }
 
     private TxLogger(final String correlationId) {
@@ -42,6 +37,8 @@ public class TxLogger extends LoggerMessageProcessor {
         } else {
             this.correlationId = correlationId;
         }
+
+        MDC.put("txId", this.correlationId);
     }
 
     public Log getLogger(){
@@ -69,7 +66,6 @@ public class TxLogger extends LoggerMessageProcessor {
     }
 
     public void setLevel(final String level){
-
         String logLevel = (level == null) ? "DEBUG" : level;
         super.setLevel(logLevel);
     }
@@ -79,6 +75,6 @@ public class TxLogger extends LoggerMessageProcessor {
     }
 
     public void log(String message) {
-        super.logWithLevel("[" + this.correlationId + "] " + message);
+        super.logWithLevel(message);
     }
 }

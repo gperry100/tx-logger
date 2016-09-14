@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="ERROR" name="example-config">
    <Properties>
-       <Property name="PATTERN">%-5level %d [%t] [%c] %m%n</Property>
+       <Property name="PATTERN">%-5level %d [%t][%c][%X{txId}] %m%n</Property>
    </Properties>
    <Appenders>
        <Console name="STDOUT" target="SYSTEM_OUT">
@@ -10,6 +10,7 @@
    </Appenders>
    <Loggers>
        <AsyncLogger name="uk.ithis" level="DEBUG"/>
+       <AsyncLogger name="uk.ithis.mule.modules.generated.agents.DefaultSplashScreenAgent" level="OFF"/>
 
        <Root level="ERROR">
            <AppenderRef ref="STDOUT"/>
